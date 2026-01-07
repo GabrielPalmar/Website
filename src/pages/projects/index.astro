@@ -1,0 +1,343 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// ============================================
+// EDIT THIS: Your projects
+// ============================================
+const projects = [
+  {
+    slug: "openvpn-automation",
+    title: "OpenVPN Automation",
+    category: "Automation",
+    description: "Brief description of the project. What problem did it solve? What was the outcome?",
+    tags: ["Python", "Bash", "REST APIs"],
+    featured: true,
+  },
+  {
+    slug: "hivebox",
+    title: "HiveBox",
+    category: "DevOps",
+    description: "Brief description of the project. What problem did it solve? What was the outcome?",
+    tags: ["Kubernetes", "Terraform", "GitHub Actions"],
+    featured: true,
+  },
+  {
+    slug: "email-db-automation",
+    title: "Email → DB Automation",
+    category: "Automation",
+    description: "Brief description of the project. What problem did it solve? What was the outcome?",
+    tags: ["Python", "AWS Lambda", "PostgreSQL"],
+    featured: true,
+  },
+  {
+    slug: "cloud-architecture-case-study",
+    title: "Cloud Architecture Case Study",
+    category: "Architecture",
+    description: "Brief description of the project. What problem did it solve? What was the outcome?",
+    tags: ["AWS", "Multi-Cloud", "VPN"],
+    featured: false,
+  },
+];
+
+const categories = ["All", ...new Set(projects.map(p => p.category))];
+---
+
+<Layout title="Projects | Gabriel Palmar" activeNav="projects">
+  <section class="projects-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Projects</h1>
+        <p class="page-description">
+          <!-- EDIT THIS: Your projects intro -->
+          A collection of work showcasing how I approach problems, 
+          design solutions, and deliver results.
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="category-filter">
+        {categories.map((category) => (
+          <button 
+            class:list={["filter-btn", { active: category === "All" }]}
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <a 
+            href={`/projects/${project.slug}`} 
+            class="project-card"
+            data-category={project.category}
+          >
+            <div class="project-image">
+              <!-- Placeholder for project image/screenshot -->
+              <div class="image-placeholder">
+                <span>{project.title.charAt(0)}</span>
+              </div>
+              {project.featured && (
+                <span class="featured-badge">Featured</span>
+              )}
+            </div>
+            
+            <div class="project-content">
+              <span class="project-category">{project.category}</span>
+              <h2 class="project-title">{project.title}</h2>
+              <p class="project-description">{project.description}</p>
+              
+              <div class="project-tags">
+                {project.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+            
+            <div class="project-footer">
+              <span class="read-more">
+                View Case Study
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .projects-page {
+    padding: 8rem 2rem 6rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Category Filter */
+  .category-filter {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .filter-btn.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -20px rgba(0,0,0,0.3);
+  }
+
+  .project-image {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: var(--color-bg);
+  }
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-elevated) 100%);
+  }
+
+  .image-placeholder span {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    opacity: 0.3;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.375rem 0.75rem;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-content {
+    padding: 1.5rem;
+    flex: 1;
+  }
+
+  .project-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .project-description {
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    padding: 0.25rem 0.625rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    color: var(--color-text-dim);
+  }
+
+  .project-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .read-more {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .project-card:hover .read-more {
+    color: var(--color-accent);
+  }
+
+  .project-card:hover .read-more svg {
+    transform: translateX(4px);
+  }
+
+  .read-more svg {
+    transition: transform 0.2s ease;
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .projects-page {
+      padding: 7rem 1.5rem 4rem;
+    }
+  }
+</style>
+
+<script>
+  // Simple category filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+      
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Filter cards
+      projectCards.forEach(card => {
+        if (category === 'All' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

@@ -1,0 +1,396 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact | Gabriel Palmar" activeNav="contact">
+  <section class="contact-page">
+    <div class="container">
+      
+      <header class="page-header">
+        <h1 class="page-title">Let's Talk</h1>
+        <p class="page-subtitle">
+          <!-- EDIT THIS: Your contact intro -->
+          Have a project in mind? Looking for a Solutions Engineer? 
+          Or just want to connect? I'd love to hear from you.
+        </p>
+      </header>
+
+      <div class="contact-grid">
+        
+        <!-- Contact Methods -->
+        <div class="contact-methods">
+          <h2>Get in Touch</h2>
+          
+          <!-- EDIT THIS: Your contact info -->
+          <a href="mailto:YOUR_EMAIL@example.com" class="contact-card">
+            <div class="card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="card-content">
+              <span class="card-label">Email</span>
+              <span class="card-value">your.email@example.com</span>
+            </div>
+          </a>
+          
+          <a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="contact-card">
+            <div class="card-icon linkedin">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div class="card-content">
+              <span class="card-label">LinkedIn</span>
+              <span class="card-value">/in/your-linkedin</span>
+            </div>
+          </a>
+          
+          <a href="https://github.com/YOUR_GITHUB" target="_blank" class="contact-card">
+            <div class="card-icon github">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+            </div>
+            <div class="card-content">
+              <span class="card-label">GitHub</span>
+              <span class="card-value">@your-github</span>
+            </div>
+          </a>
+          
+          <div class="location-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <!-- EDIT THIS: Your location -->
+            <span>Your City, Country</span>
+            <span class="separator">•</span>
+            <span>Open to Remote</span>
+          </div>
+        </div>
+
+        <!-- What I'm Looking For -->
+        <div class="looking-for">
+          <h2>What I'm Looking For</h2>
+          
+          <div class="opportunity-list">
+            <!-- EDIT THIS: Types of opportunities you want -->
+            <div class="opportunity-item active">
+              <div class="opp-icon">✓</div>
+              <div class="opp-content">
+                <h4>Solutions Engineering Roles</h4>
+                <p>Technical pre-sales, customer-facing engineering</p>
+              </div>
+            </div>
+            
+            <div class="opportunity-item active">
+              <div class="opp-icon">✓</div>
+              <div class="opp-content">
+                <h4>DevOps / Platform Engineering</h4>
+                <p>Infrastructure, automation, CI/CD</p>
+              </div>
+            </div>
+            
+            <div class="opportunity-item active">
+              <div class="opp-icon">✓</div>
+              <div class="opp-content">
+                <h4>Cloud Architecture</h4>
+                <p>Design and implementation of cloud solutions</p>
+              </div>
+            </div>
+            
+            <div class="opportunity-item">
+              <div class="opp-icon">○</div>
+              <div class="opp-content">
+                <h4>Consulting / Contract Work</h4>
+                <p>Open to discussing project-based work</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resume Download -->
+      <div class="resume-section">
+        <div class="resume-card">
+          <div class="resume-info">
+            <h3>Download My Resume</h3>
+            <p>PDF format, updated January 2025</p>
+          </div>
+          <!-- EDIT THIS: Link to your resume file -->
+          <a href="/resume.pdf" class="btn btn-primary" download>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download PDF
+          </a>
+        </div>
+      </div>
+
+      <!-- Response Time Note -->
+      <div class="response-note">
+        <p>
+          <strong>Response time:</strong> I typically respond within 24-48 hours. 
+          If your inquiry is urgent, please mention that in the subject line.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact-page {
+    padding: 8rem 2rem 6rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* Contact Grid */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-methods h2,
+  .looking-for h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Contact Cards */
+  .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-accent);
+    transform: translateX(4px);
+  }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg);
+    border-radius: 10px;
+    color: var(--color-accent);
+  }
+
+  .card-icon.linkedin { color: #0a66c2; }
+  .card-icon.github { color: var(--color-text); }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-value {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .location-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .location-info svg {
+    color: var(--color-accent);
+  }
+
+  .separator {
+    color: var(--color-text-dim);
+  }
+
+  /* Opportunities */
+  .opportunity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .opportunity-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    opacity: 0.6;
+  }
+
+  .opportunity-item.active {
+    opacity: 1;
+    border-color: var(--color-accent);
+    background: linear-gradient(135deg, var(--color-accent-glow) 0%, var(--color-bg-card) 100%);
+  }
+
+  .opp-icon {
+    font-size: 1rem;
+    color: var(--color-accent);
+  }
+
+  .opportunity-item:not(.active) .opp-icon {
+    color: var(--color-text-dim);
+  }
+
+  .opp-content h4 {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .opp-content p {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Resume Section */
+  .resume-section {
+    margin-bottom: 3rem;
+  }
+
+  .resume-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+  }
+
+  .resume-info h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .resume-info p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-text);
+    transform: translateY(-2px);
+  }
+
+  /* Response Note */
+  .response-note {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--color-bg-elevated);
+    border-radius: 10px;
+  }
+
+  .response-note p {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .response-note strong {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .resume-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .contact-page {
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .location-info {
+      flex-wrap: wrap;
+    }
+  }
+</style>

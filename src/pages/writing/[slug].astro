@@ -1,0 +1,311 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { slug } = Astro.params;
+
+// ============================================
+// EDIT THIS: Your blog posts content
+// ============================================
+const postsData: Record<string, any> = {
+  "example-rca-post": {
+    title: "Post Title Here",
+    subtitle: "A subtitle or tagline for the post",
+    category: "RCA",
+    date: "2024-01-15",
+    readTime: "5 min read",
+    content: `
+## Introduction
+
+Start with context. What's this post about? Why should the reader care?
+
+## Background
+
+Set the scene. What was happening? What systems were involved?
+
+## The Problem
+
+Describe what went wrong or what challenge you faced.
+
+## Investigation
+
+Walk through your debugging/investigation process.
+
+## Root Cause
+
+What was actually causing the problem?
+
+## Solution
+
+How did you fix it?
+
+## Lessons Learned
+
+What would you do differently? What did this teach you?
+
+## Conclusion
+
+Wrap up and provide any final thoughts.
+    `,
+    relatedLinks: [
+      { title: "Related Resource 1", url: "#" },
+    ],
+  },
+  
+  "design-decision-example": {
+    title: "Post Title Here",
+    subtitle: "A subtitle for the post",
+    category: "Design",
+    date: "2024-01-10",
+    readTime: "8 min read",
+    content: `
+## Context
+
+What situation required a design decision?
+
+## The Options
+
+### Option A
+
+Description and pros/cons.
+
+### Option B
+
+Description and pros/cons.
+
+## Decision
+
+What did you choose and why?
+
+## Results
+
+How did it work out?
+    `,
+    relatedLinks: [],
+  },
+};
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: "example-rca-post" } },
+    { params: { slug: "design-decision-example" } },
+  ];
+}
+
+const post = postsData[slug as string];
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
+function parseContent(content: string) {
+  return content
+    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/^- (.*$)/gm, '<li>$1</li>')
+    .split('\n\n')
+    .map(block => {
+      block = block.trim();
+      if (!block) return '';
+      if (block.startsWith('<')) return block;
+      if (block.includes('<li>')) return `<ul>${block}</ul>`;
+      return `<p>${block}</p>`;
+    })
+    .join('\n');
+}
+---
+
+<Layout title={`${post.title} | Gabriel Palmar`} activeNav="writing">
+  <article class="post-page">
+    <header class="post-header">
+      <div class="container">
+        <a href="/writing" class="back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Back to Writing
+        </a>
+        
+        <div class="post-meta">
+          <span class="post-category">{post.category}</span>
+          <span class="post-date">{formatDate(post.date)}</span>
+          <span class="post-read-time">{post.readTime}</span>
+        </div>
+        
+        <h1 class="post-title">{post.title}</h1>
+        {post.subtitle && <p class="post-subtitle">{post.subtitle}</p>}
+      </div>
+    </header>
+
+    <section class="post-content">
+      <div class="container">
+        <div class="content-body" set:html={parseContent(post.content)} />
+      </div>
+    </section>
+
+    {post.relatedLinks && post.relatedLinks.length > 0 && (
+      <section class="related-section">
+        <div class="container">
+          <h3>Related Resources</h3>
+          <div class="related-links">
+            {post.relatedLinks.map((link: any) => (
+              <a href={link.url} class="related-link">
+                {link.title}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <nav class="post-nav">
+      <div class="container">
+        <a href="/writing" class="nav-link">
+          ← Back to All Posts
+        </a>
+      </div>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .post-page { padding-top: 5rem; }
+  .container { max-width: 700px; margin: 0 auto; padding: 0 2rem; }
+
+  .post-header {
+    padding: 3rem 0 4rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+  .back-link:hover { color: var(--color-accent); }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .post-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .post-date, .post-read-time {
+    font-size: 0.875rem;
+    color: var(--color-text-dim);
+  }
+
+  .post-title {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+
+  .post-content { padding: 4rem 0; }
+
+  .content-body {
+    font-size: 1.0625rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  .content-body :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 3rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .content-body :global(h2:first-child) { margin-top: 0; }
+
+  .content-body :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 2rem 0 1rem;
+  }
+
+  .content-body :global(p) { margin-bottom: 1.5rem; }
+  .content-body :global(strong) { color: var(--color-text); font-weight: 600; }
+  .content-body :global(ul) { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+  .content-body :global(li) { margin-bottom: 0.5rem; }
+
+  .related-section {
+    padding: 3rem 0;
+    background: var(--color-bg-elevated);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .related-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .related-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  .related-link {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    padding: 0.625rem 1rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+  .related-link:hover { border-color: var(--color-accent); color: var(--color-accent); }
+
+  .post-nav {
+    padding: 3rem 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .nav-link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover { color: var(--color-accent); }
+
+  @media (max-width: 640px) {
+    .post-header { padding: 2rem 0 3rem; }
+    .container { padding: 0 1.5rem; }
+  }
+</style>

@@ -1,0 +1,373 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// ============================================
+// EDIT THIS: Your blog posts/articles
+// ============================================
+const posts = [
+  {
+    slug: "example-rca-post",
+    title: "Post Title Here",
+    description: "A brief description of what this post covers. Keep it to 1-2 sentences.",
+    category: "RCA",  // Options: RCA, Design, Tutorial, Thoughts
+    date: "2024-01-15",
+    readTime: "5 min read",
+  },
+  {
+    slug: "design-decision-example",
+    title: "Post Title Here",
+    description: "A brief description of what this post covers. Keep it to 1-2 sentences.",
+    category: "Design",
+    date: "2024-01-10",
+    readTime: "8 min read",
+  },
+  // Add more posts here...
+];
+
+// Format date helper
+function formatDate(dateString: string) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
+const categories = ["All", ...new Set(posts.map(p => p.category))];
+---
+
+<Layout title="Writing | Gabriel Palmar" activeNav="writing">
+  <section class="writing-page">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Writing</h1>
+        <p class="page-description">
+          <!-- EDIT THIS: Your writing intro -->
+          Thoughts on engineering, architecture decisions, and lessons learned 
+          from solving real-world problems.
+        </p>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="category-filter">
+        {categories.map((category) => (
+          <button 
+            class:list={["filter-btn", { active: category === "All" }]}
+            data-category={category}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
+
+      <!-- Posts List -->
+      <div class="posts-list">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <a 
+              href={`/writing/${post.slug}`} 
+              class="post-card"
+              data-category={post.category}
+            >
+              <div class="post-meta">
+                <span class="post-category">{post.category}</span>
+                <span class="post-date">{formatDate(post.date)}</span>
+                <span class="post-read-time">{post.readTime}</span>
+              </div>
+              
+              <h2 class="post-title">{post.title}</h2>
+              <p class="post-description">{post.description}</p>
+              
+              <span class="read-more">
+                Read Article
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          ))
+        ) : (
+          <div class="empty-state">
+            <p>No posts yet. Check back soon!</p>
+          </div>
+        )}
+      </div>
+
+      <!-- Subscribe CTA (Optional) -->
+      <div class="subscribe-cta">
+        <div class="cta-content">
+          <h3>Stay Updated</h3>
+          <p>
+            <!-- EDIT THIS: Your newsletter pitch -->
+            Get notified when I publish new posts about engineering, 
+            cloud architecture, and DevOps.
+          </p>
+          <div class="cta-actions">
+            <!-- Option 1: Link to RSS -->
+            <a href="/rss.xml" class="btn btn-secondary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              RSS Feed
+            </a>
+            <!-- Option 2: Link to LinkedIn -->
+            <a href="https://linkedin.com/in/YOUR_LINKEDIN" class="btn btn-secondary" target="_blank">
+              Follow on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .writing-page {
+    padding: 8rem 2rem 6rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+  }
+
+  .page-description {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Category Filter */
+  .category-filter {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.625rem 1.25rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  .filter-btn.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  /* Posts List */
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .post-card {
+    display: block;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .post-card:hover {
+    border-color: var(--color-accent);
+    transform: translateX(8px);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .post-category {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .post-date,
+  .post-read-time {
+    font-size: 0.8125rem;
+    color: var(--color-text-dim);
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .post-description {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .post-card:hover .read-more {
+    color: var(--color-accent);
+  }
+
+  .post-card:hover .read-more svg {
+    transform: translateX(4px);
+  }
+
+  .read-more svg {
+    transition: transform 0.2s ease;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-text-muted);
+  }
+
+  /* Subscribe CTA */
+  .subscribe-cta {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .cta-content h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-content p {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 640px) {
+    .writing-page {
+      padding: 7rem 1.5rem 4rem;
+    }
+
+    .post-card {
+      padding: 1.5rem;
+    }
+
+    .subscribe-cta {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Simple category filtering
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const postCards = document.querySelectorAll('.post-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.dataset.category;
+      
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Filter cards
+      postCards.forEach(card => {
+        if (category === 'All' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
