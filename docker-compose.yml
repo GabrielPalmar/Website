@@ -1,8 +1,8 @@
 services:
-  portfolio:
+  website:
     image: ${IMAGE:-ghcr.io/gabrielpalmar/website:latest}
     build: .
-    container_name: portfolio
+    container_name: website
     ports:
       - "80:80"
       - "443:443"
