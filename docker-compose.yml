@@ -1,11 +1,16 @@
-version: '3.8'
-
 services:
   portfolio:
+    image: ${IMAGE:-ghcr.io/gabrielpalmar/website:latest}
     build: .
     container_name: portfolio
     ports:
       - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN:-localhost}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
@@ -14,9 +19,13 @@ services:
       retries: 3
       start_period: 10s
 
-# For local development/testing:
-#   docker-compose up --build
+volumes:
+  caddy_data:
+  caddy_config:
+
+# For local development (builds from Dockerfile):
+#   docker compose up --build
 #
-# For production (after pushing to GHCR):
-#   docker-compose pull
-#   docker-compose up -d
+# For production (pulls from GHCR):
+#   docker compose pull
+#   docker compose up -d

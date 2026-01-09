@@ -1,7 +1,7 @@
 # ===========================================
 # Stage 1: Build the Astro site
 # ===========================================
-FROM node:20-alpine AS builder
+FROM node:25.2.1-alpine AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ RUN npm run build
 # ===========================================
 # Stage 2: Serve with Caddy
 # ===========================================
-FROM caddy:alpine
+FROM caddy:2.11-alpine
 
 # Copy Caddyfile
 COPY Caddyfile /etc/caddy/Caddyfile
@@ -28,7 +28,8 @@ COPY Caddyfile /etc/caddy/Caddyfile
 # Copy built static files from builder stage
 COPY --from=builder /app/dist /usr/share/caddy
 
-# Expose port 80
+# Expose ports for HTTP and HTTPS
 EXPOSE 80
+EXPOSE 443
 
 # Caddy starts automatically

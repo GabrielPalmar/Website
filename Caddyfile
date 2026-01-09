@@ -1,8 +1,4 @@
-{
-    auto_https off
-}
-
-:80 {
+{$DOMAIN:localhost}, www.{$DOMAIN:localhost} {
     root * /usr/share/caddy
     file_server
 
@@ -11,6 +7,10 @@
         X-Frame-Options "SAMEORIGIN"
         X-Content-Type-Options "nosniff"
         X-XSS-Protection "1; mode=block"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'; frame-ancestors 'self'"
+        Permissions-Policy "geolocation=(), microphone=(), camera=()"
     }
 
     # Cache static assets

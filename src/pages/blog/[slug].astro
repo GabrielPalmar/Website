@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { posts, getPostBySlug } from '../../data/posts';
+import { marked } from 'marked';
 
 // Generate static paths for all posts
 export function getStaticPaths() {
@@ -27,21 +28,10 @@ function formatDate(dateString: string) {
   });
 }
 
-function parseContent(content: string) {
-  return content
-    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/^- (.*$)/gm, '<li>$1</li>')
-    .split('\n\n')
-    .map(block => {
-      block = block.trim();
-      if (!block) return '';
-      if (block.startsWith('<')) return block;
-      if (block.includes('<li>')) return `<ul>${block}</ul>`;
-      return `<p>${block}</p>`;
-    })
-    .join('\n');
+// Parse markdown content using marked
+// Content is trusted (author-controlled from posts.ts, not user input)
+function parseContent(content: string): string {
+  return marked.parse(content, { async: false }) as string;
 }
 ---
 
