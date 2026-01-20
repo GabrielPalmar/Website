@@ -56,8 +56,8 @@ graph TB
         K[index.astro<br/>Home]
         L[about.astro<br/>About]
         M[contact.astro<br/>Contact]
-        N[projects/[slug].astro<br/>Dynamic routes]
-        O[blog/[slug].astro<br/>Dynamic routes]
+        N["projects/[slug].astro<br/>Dynamic routes"]
+        O["blog/[slug].astro<br/>Dynamic routes"]
     end
 
     A --> E
