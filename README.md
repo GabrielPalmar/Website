@@ -65,7 +65,7 @@ graph TB
     C --> K & L & M & N & O
     K & L & M & N & O --> E
 
-    J --> P[HTTPS<br/>Auto SSL via Let's Encrypt]
+    J --> P[HTTPS<br/>Cloudflare Origin Certificate]
 ```
 
 ## Project Structure
@@ -126,8 +126,11 @@ docker compose up -d
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `DOMAIN` | `localhost` | Domain for Caddy SSL certificate |
+| `DOMAIN` | `localhost` | Domain for Caddy |
 | `IMAGE` | `ghcr.io/gabrielpalmar/website:latest` | Container image to use |
+| `TLS_CERT` | - | Path to TLS certificate inside container |
+| `TLS_KEY` | - | Path to TLS private key inside container |
+| `CERTS_PATH` | - | Host path to certificates directory |
 
 ## Security
 
@@ -142,16 +145,24 @@ Caddy is configured with the following security headers:
 
 ## Deployment
 
-The container exposes ports 80 and 443. Caddy intially handles automatic SSL certificate provisioning via Let's Encrypt. 
+The container exposes ports 80 and 443. TLS is handled via Cloudflare Origin Certificates with Full (strict) SSL mode.
 
-CloudFlare will manage the TLS settings in the future.
+### TLS Setup
+
+1. Generate an Origin Certificate in Cloudflare Dashboard (SSL/TLS → Origin Server)
+2. Save the certificate and key on your server (e.g., `/path/to/certs/`)
+3. Configure environment variables in your `.env` file
 
 ```bash
 # Pull and run
 docker pull ghcr.io/gabrielpalmar/website:latest
 
-# With custom domain
-DOMAIN=gabrielpalmar.com docker compose up -d
+# With Cloudflare Origin Certificate
+DOMAIN=gabrielpalmar.com \
+CERTS_PATH=/path/to/certs \
+TLS_CERT=/certs/origin.pem \
+TLS_KEY=/certs/origin-key.pem \
+docker compose up -d
 ```
 
 ### Health Check

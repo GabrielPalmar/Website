@@ -1,4 +1,6 @@
-{$DOMAIN:localhost}, www.{$DOMAIN:localhost} {
+{$DOMAIN:localhost} {
+    tls {$TLS_CERT} {$TLS_KEY}
+
     root * /usr/share/caddy
     file_server
 
