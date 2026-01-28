@@ -141,7 +141,7 @@ export const projects: Project[] = [
       },
     ],
     links: {
-      github: "https://github.com/GabrielPalmar/AWS-S3-CloudConnexa-Log-Streaming-to-CloudWatch",
+      github: "https://github.com/GabrielPalmar/AWS-CloudConnexa-Resource-Monitor",
     },
   },
   {

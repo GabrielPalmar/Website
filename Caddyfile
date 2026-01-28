@@ -1,5 +1,12 @@
 {$DOMAIN:localhost} {
-    tls {$TLS_CERT} {$TLS_KEY}
+    tls {$TLS_CERT} {$TLS_KEY} {
+        protocols tls1.2 tls1.3
+    }
+
+    # Health check endpoint (must be before file_server)
+    handle /health {
+        respond "healthy" 200
+    }
 
     root * /usr/share/caddy
     file_server
@@ -23,11 +30,6 @@
 
     # Compress responses
     encode gzip
-
-    # Health check endpoint
-    handle /health {
-        respond "healthy" 200
-    }
 
     # SPA routing - serve index.html for routes not found
     try_files {path} {path}/ {path}.html /index.html
